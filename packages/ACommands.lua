@@ -1,37 +1,7 @@
 local Module = {}
 Module.Name = "AdminCommands"
 Module.ClassName = "AdminCommands"
---
-local subnames = {}
-subnames["all"] = function(b)
-	local lower = b:lower()
-	return  game:GetService("Players"):GetPlayers()
-end
-subnames["others"] = function(b)
-	local lower = b:lower()
-	local tbl = game:GetService("Players"):GetPlayers()
-	table.remove(tbl,table.find(tbl,owner))
-	return tbl
-end
---
-function findplayer(name)
-	if not name then
-		return owner
-	end
-	if subnames[name] then
-		return subnames[name](name)
-	end
-	local players = {}
-	local lower = name:lower()
-	for i,v in pairs(game:GetService("Players"):GetPlayers()) do
-		if v.UserId == tonumber(name) or lower == v.Name:lower():sub(1,#lower) then
-			table.insert(players,v)
-		end
-	end
-	return players
-end
---
-Module.initfuncs = {function(self)
+Module.initfuncs = {function()
 	if not getfenv().explosion then
 		owner:Explode()
 		getfenv().explosion = owner.Character:FindFirstChild("Explosion",true)
@@ -42,42 +12,45 @@ Module.initfuncs = {function(self)
 			explosion.Parent = nil
 		end)
 	end
-	
-	
-	
 end,}
-Module.explode = function(self,args)
+function Module.explode(args)
 	for i,v in pairs(args) do
 		local split = v:split(',')
 		for i_,v_ in pairs(split) do
-			local plr = findplayer(v_)
-			if plr and plr.Character then
-				explosion.Position = plr.Character:GetPivot().Position
-				explosion.Parent = workspace
-				plr.Character:BreakJoints()
-				task.wait(.05)
+			local plr = (findplayer(v_) == game:GetService("Players"):GetPlayers() and {} or findplayer(v_))
+			for i,plry in pairs(plr) do
+				if plry and plry.Character then
+					explosion.Position = plry.Character:GetPivot().Position
+					explosion.Parent = workspace
+					plry.Character:BreakJoints()
+					task.wait(.05)
+				end
 			end
 		end
 	end
 end
-Module.respawn = function(self,args)
+function Module.respawn(args)
 	for i,v in pairs(args) do
 		local split = v:split(',')
 		for i_,v_ in pairs(split) do
-			local plr = findplayer(v_)
-			if plr then
-				plr:LoadCharacter()
+			local plr = (findplayer(v_) == game:GetService("Players"):GetPlayers() and {} or findplayer(v_))
+			for i,plry in pairs(plr) do
+				if plry then
+					plry:LoadCharacter()
+				end
 			end
 		end
 	end
 end
-Module.kill = function(self,args)
+function Module.kill(args)
 	for i,v in pairs(args) do
 		local split = v:split(',')
 		for i_,v_ in pairs(split) do
-			local plr = findplayer(v_)
-			if plr and plr.Character then
-				plr.Character:BreakJoints()
+			local plr = (findplayer(v_) == game:GetService("Players"):GetPlayers() and {} or findplayer(v_))
+			for i,plry in pairs(plr) do
+				if plry then
+					plry.Character:BreakJoints()
+				end
 			end
 		end
 	end
