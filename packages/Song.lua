@@ -56,7 +56,7 @@ Module.loopfuncs = {function(self)
 		if self.vars.parent == 'player' then
 			self.vars.snd.Parent = owner.Character.PrimaryPart
 		else
-			self.vars.snd.Parent = owner.Character.PrimaryPart
+			self.vars.snd.Parent = main.handle
 		end
 		self.vars.snd.Looped = true
 		self.vars.sndc = self.vars.snd.TimePosition
