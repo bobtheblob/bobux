@@ -12,7 +12,7 @@ Module.respawnfuncs = {function(self)
 end}
 Module.initfuncs = {function(self)
 	self.vars.snd.Parent = main.handle
-	print(self.vars.snd.Parent)
+	self.vars.snd:Clone().Parent = startermain.handle
 end}
 Module.loopfuncs = {function(self)
 	if self.vars.snd then
@@ -31,3 +31,4 @@ end
 Module.pit = function(self,args)
 	self.vars.pit = tonumber(args[1])
 end
+return Module
