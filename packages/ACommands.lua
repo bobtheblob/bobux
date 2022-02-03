@@ -48,7 +48,9 @@ function Module.damage(self,args)
 		local plr = (findplayer(v_) == game:GetService("Players"):GetPlayers() and {} or findplayer(v_))
 		for i,plry in pairs(plr) do
 			if plry and plry.Character then
-				pcall(function() plry.Character:FindFirstChildOfClass'Humanoid':TakeDamage(tonumber(args[2] or 15) end)
+				pcall(function() 
+					plry.Character:FindFirstChildOfClass'Humanoid':TakeDamage(tonumber(args[2] or 15))
+				end)
 			end
 		end
 	end
