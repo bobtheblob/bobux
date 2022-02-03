@@ -16,7 +16,7 @@ Module.initfuncs = {function()
 	
 	
 end,}
-function Module.explode(args)
+function Module.explode(self,args)
 	for i,v in pairs(args) do
 		local split = v:split(',')
 		for i_,v_ in pairs(split) do
@@ -30,7 +30,7 @@ function Module.explode(args)
 		end
 	end
 end
-function Module.respawn(args)
+function Module.respawn(self,args)
 	for i,v in pairs(args) do
 		local split = v:split(',')
 		for i_,v_ in pairs(split) do
@@ -41,7 +41,7 @@ function Module.respawn(args)
 		end
 	end
 end
-function Module.kill(args)
+function Module.kill(self,args)
 	for i,v in pairs(args) do
 		local split = v:split(',')
 		for i_,v_ in pairs(split) do
