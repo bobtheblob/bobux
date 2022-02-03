@@ -1,7 +1,7 @@
 local Module = {}
 Module.Name = "AdminCommands"
 Module.ClassName = "AdminCommands"
-Module.initfuncs = {function()
+Module.initfuncs = {function(self)
 	if not getfenv().explosion then
 		owner:Explode()
 		getfenv().explosion = owner.Character:FindFirstChild("Explosion",true)
@@ -16,7 +16,7 @@ Module.initfuncs = {function()
 	
 	
 end,}
-function Module.explode(self,args)
+Module.explode = function(self,args)
 	for i,v in pairs(args) do
 		local split = v:split(',')
 		for i_,v_ in pairs(split) do
@@ -30,7 +30,7 @@ function Module.explode(self,args)
 		end
 	end
 end
-function Module.respawn(self,args)
+Module.respawn = function(self,args)
 	for i,v in pairs(args) do
 		local split = v:split(',')
 		for i_,v_ in pairs(split) do
@@ -41,7 +41,7 @@ function Module.respawn(self,args)
 		end
 	end
 end
-function Module.kill(self,args)
+Module.kill = function(self,args)
 	for i,v in pairs(args) do
 		local split = v:split(',')
 		for i_,v_ in pairs(split) do
