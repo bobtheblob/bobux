@@ -1,5 +1,4 @@
 local Module = {}
-
 Module.Name = "Song"
 Module.ClassName = "Song"
 Module.vars = {
