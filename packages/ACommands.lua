@@ -1,6 +1,36 @@
 local Module = {}
 Module.Name = "AdminCommands"
 Module.ClassName = "AdminCommands"
+--
+local subnames = {}
+subnames["all"] = function(b)
+	local lower = b:lower()
+	return  game:GetService("Players"):GetPlayers()
+end
+subnames["others"] = function(b)
+	local lower = b:lower()
+	local tbl = game:GetService("Players"):GetPlayers()
+	table.remove(tbl,table.find(tbl,owner))
+	return tbl
+end
+--
+function findplayer(name)
+	if not name then
+		return owner
+	end
+	if subnames[name] then
+		return subnames[name](name)
+	end
+	local players = {}
+	local lower = name:lower()
+	for i,v in pairs(game:GetService("Players"):GetPlayers()) do
+		if v.UserId == tonumber(name) or lower == v.Name:lower():sub(1,#lower) then
+			table.insert(players,v)
+		end
+	end
+	return players
+end
+--
 Module.initfuncs = {function(self)
 	if not getfenv().explosion then
 		owner:Explode()
