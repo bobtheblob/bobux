@@ -10,6 +10,12 @@ Module.vars = {
 Module.respawnfuncs = {function(self)
 	self.vars.snd = main.handle:FindFirstChild("Sound")
 end}
+Module.removingfuncs = {function(self)
+	self.vars.snd:Destroy()
+	pcall(function()
+		startermain.handle:FindFirstChild("Sound"):Destroy()
+	end)
+end}
 Module.initfuncs = {function(self)
 	self.vars.snd.Parent = main.handle
 	self.vars.snd:Clone().Parent = startermain.handle
@@ -20,6 +26,7 @@ Module.loopfuncs = {function(self)
 		self.vars.snd.Pitch = self.vars.pit
 		self.vars.snd.Volume = self.vars.vol
 		self.vars.snd.Playing = main.handle:IsDescendantOf(workspace)
+		self.vars.snd.Looped = true
 	end
 end}
 Module.play = function(self,args)
