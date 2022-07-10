@@ -80,7 +80,7 @@ Module.reinit = function(self,args)
 	end
 end
 Module.play = function(self,args)
-	getfenv().SongVars.msid = tonumber(args[1])
+	getfenv().SongVars.msid = args[1]
 	spawn(function()
 		local s,f = pcall(function()
 			local market = game:GetService("MarketplaceService"):GetProductInfo(self.vars.msid)
