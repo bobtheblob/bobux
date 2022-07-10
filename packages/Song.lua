@@ -49,7 +49,7 @@ Module.loopfuncs = {function(self)
 	}
 	self.vars = getfenv().SongVars
 	if self.vars.snd then
-		self.vars.snd.SoundId = "rbxassetid://"..self.vars.msid
+		self.vars.snd.SoundId = self.vars.msid
 		self.vars.snd.Pitch = self.vars.pit
 		self.vars.snd.Volume = self.vars.vol
 		self.vars.snd.Playing = self.vars.snd:IsDescendantOf(workspace)
@@ -82,12 +82,17 @@ end
 Module.play = function(self,args)
 	getfenv().SongVars.msid = tonumber(args[1])
 	spawn(function()
-		pcall(function()
+		local s,f = pcall(function()
 			local market = game:GetService("MarketplaceService"):GetProductInfo(self.vars.msid)
 			if market then
 				print('Now playing '..market.Name)
+			else
+				print('Now playing '..self.vars.msid)
 			end
 		end)
+		if f then
+			print('Now playing '..self.vars.msid)
+		end
 	end)
 end
 Module.vol = function(self,args)
@@ -97,4 +102,3 @@ Module.pit = function(self,args)
 	getfenv().SongVars.pit = tonumber(args[1])
 end
 return Module
-
